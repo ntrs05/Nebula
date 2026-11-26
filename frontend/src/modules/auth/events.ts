@@ -12,4 +12,4 @@ declare module '@/shared/event-bus/events' {
   }
 }
 
-export {};
+export { };

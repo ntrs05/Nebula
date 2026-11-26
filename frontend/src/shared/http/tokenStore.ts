@@ -1,5 +1,6 @@
 const KEY = 'nebula.token';
 
+/** Nơi lưu access token (localStorage: giữ đăng nhập giữa các tab). */
 export const tokenStore = {
   get(): string | null {
     try {

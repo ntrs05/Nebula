@@ -1,16 +1,11 @@
-// Trang chủ sau khi đăng nhập. TODO: server xong thì thay bằng HomeView.
-export function HomePage() {
-  return <Slot name="HomeView" from="server" grow />;
-}
+import { useAuthStore } from '@/modules/auth';
+import { HomeView } from '@/modules/server';
 
-// placeholder, thay bằng component thật khi module xong
-function Slot({ name, from, grow = false }: { name: string; from: string; grow?: boolean }) {
+export function HomePage() {
+  const name = useAuthStore((s) => s.user?.displayName ?? '');
   return (
-    <div className={`flex min-h-[110px] items-center justify-center p-3 ${grow ? 'flex-1' : ''}`}>
-      <div className="rounded-xl border border-dashed border-zinc-600 px-5 py-4 text-center text-zinc-400">
-        <p className="font-semibold text-zinc-100">{name}</p>
-        <p className="mt-1 text-xs">module {from} · chưa ghép</p>
-      </div>
+    <div className="flex-1">
+      <HomeView displayName={name} />
     </div>
   );
 }

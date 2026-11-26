@@ -1,2 +1,6 @@
-// TODO: export các repository ra đây cho module.ts dùng.
-export {};
+import type { DirectRepository } from '../application/ports';
+import { HttpDirectRepository } from './HttpDirectRepository';
+
+export function createDirectRepository(): DirectRepository {
+  return new HttpDirectRepository();
+}

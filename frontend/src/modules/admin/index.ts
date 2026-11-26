@@ -1,7 +1,6 @@
-// Cửa ra của module admin (UC19, UC20, UC21, UC22, TV-Admin phụ trách).
-// Module khác chỉ import những gì export ở đây, muốn cho dùng thêm gì thì thêm vào file này.
-export { initAdminModule } from './module';
+/**
+ * PUBLIC API của module Admin (giao diện quản trị hệ thống — chỉ admin hệ thống dùng).
+ * Module khác CHỈ được import từ file này, không import sâu vào bên trong.
+ */
+export { initAdminModule, adminService } from './module';
 export { AdminPage } from './presentation/AdminPage';
-export { AuditTab } from './presentation/AuditTab';
-export { ServersTab } from './presentation/ServersTab';
-export { UsersTab } from './presentation/UsersTab';

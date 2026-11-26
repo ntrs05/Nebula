@@ -1,4 +1,5 @@
 import type { ID, UserProfile } from '@/shared/types';
+
 export interface Server {
   id: ID;
   name: string;
@@ -24,6 +25,7 @@ export interface Channel {
   isPrivate?: boolean;
 }
 
+/** owner = chủ server, moderator = quản trị viên, member = thành viên. */
 export type Role = 'owner' | 'moderator' | 'member';
 
 export interface Member {
@@ -48,6 +50,7 @@ export interface CreateChannelInput {
   memberIds?: string[];
 }
 
+/** Mức thông báo của CẢ một server */
 export type NotifyLevel = 'all' | 'mentions' | 'nothing';
 
 export interface ServerSettings {
@@ -55,6 +58,7 @@ export interface ServerSettings {
   mutedUntil: string | null;
 }
 
+/** Lời mời vào server do người khác gửi, đang chờ mình trả lời. */
 export interface Invitation {
   id: ID;
   serverId: ID;

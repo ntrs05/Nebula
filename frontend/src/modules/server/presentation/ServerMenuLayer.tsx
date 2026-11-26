@@ -1,11 +1,33 @@
-export function ServerMenuLayer() {
+import { useState, type ReactNode } from 'react';
+import type { Server } from '../domain/models';
+import { InviteModal } from './InviteModal';
+import { LeaveServerModal } from './LeaveServerModal';
+import { ServerContextMenu } from './ServerContextMenu';
+
+interface Props {
+  server: Server;
+  anchor: { x: number; y: number } | null;
+  onCloseMenu: () => void;
+  renderInviteExtra?: (server: Server) => ReactNode;
+}
+
+export function ServerMenuLayer({ server, anchor, onCloseMenu, renderInviteExtra }: Props) {
+  const [inviteOpen, setInviteOpen] = useState(false);
+  const [leaveOpen, setLeaveOpen] = useState(false);
   return (
-    <div className="flex min-h-[120px] items-center justify-center p-4">
-      <div className="rounded-xl border border-dashed border-zinc-600 px-6 py-5 text-center text-zinc-400">
-        <p className="font-semibold text-zinc-100">ServerMenuLayer</p>
-        <p className="mt-1 text-sm">Module <b>server</b> · UC05, UC15, UC16, UC18</p>
-        <p className="mt-1 text-xs">chưa làm</p>
-      </div>
-    </div>
+    <>
+      {anchor && (
+        <ServerContextMenu
+          server={server}
+          x={anchor.x}
+          y={anchor.y}
+          onClose={onCloseMenu}
+          onInvite={() => setInviteOpen(true)}
+          onLeave={() => setLeaveOpen(true)}
+        />
+      )}
+      <InviteModal server={server} open={inviteOpen} onClose={() => setInviteOpen(false)} extra={renderInviteExtra?.(server)} />
+      <LeaveServerModal server={server} open={leaveOpen} onClose={() => setLeaveOpen(false)} />
+    </>
   );
 }

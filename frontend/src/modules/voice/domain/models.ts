@@ -1,8 +1,10 @@
 import type { UserProfile } from '@/shared/types';
+
 export interface VoiceParticipant {
   channelId: string;
   serverId: string;
   user: UserProfile;
+  /** Mỗi tab là một "client" riêng → một kết nối WebRTC riêng */
   clientId: string;
   muted: boolean;
   deafened: boolean;
@@ -17,6 +19,7 @@ export interface VoiceChannelRef {
   name: string;
 }
 
+/** Tín hiệu WebRTC trao đổi qua server (signaling). Âm thanh đi trực tiếp peer-to-peer. */
 export type SignalData =
   | { kind: 'hello' }
   | { kind: 'offer'; sdp: RTCSessionDescriptionInit }
@@ -31,4 +34,9 @@ export interface SignalEnvelope {
   data: SignalData;
 }
 
-// TODO: isInitiator, SPEAKING_THRESHOLD
+/**
+ * Tránh "glare" (hai bên cùng gửi offer): bên có clientId NHỎ HƠN luôn là bên khởi tạo offer.
+ */
+export const isInitiator = (selfId: string, peerId: string) => selfId < peerId;
+
+export const SPEAKING_THRESHOLD = 0.04;
